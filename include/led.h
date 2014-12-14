@@ -21,16 +21,16 @@
 #endif
 
 // trigger files
-char* usr_trg[] = { "/sys/class/leds/beaglebone:green:usr0/trigger",
-					"/sys/class/leds/beaglebone:green:usr1/trigger",
-					"/sys/class/leds/beaglebone:green:usr2/trigger",
-					"/sys/class/leds/beaglebone:green:usr3/trigger"};
+char* usr_trg[] = { 	"/sys/class/leds/beaglebone:green:usr0/trigger",
+			"/sys/class/leds/beaglebone:green:usr1/trigger",
+			"/sys/class/leds/beaglebone:green:usr2/trigger",
+			"/sys/class/leds/beaglebone:green:usr3/trigger"};
 
 // brightness files
-char* usr_brt[] = { "/sys/class/leds/beaglebone:green:usr0/brightness",
-					"/sys/class/leds/beaglebone:green:usr1/brightness",
-					"/sys/class/leds/beaglebone:green:usr2/brightness",
-					"/sys/class/leds/beaglebone:green:usr3/brightness"};
+char* usr_brt[] = { 	"/sys/class/leds/beaglebone:green:usr0/brightness",
+			"/sys/class/leds/beaglebone:green:usr1/brightness",
+			"/sys/class/leds/beaglebone:green:usr2/brightness",
+			"/sys/class/leds/beaglebone:green:usr3/brightness"};
 
 typedef struct {
 	unsigned char isOn;
@@ -43,9 +43,9 @@ typedef struct {
 } led;
 
 // led object methods
-int led_init(led*, int);	// initialize led files, returns 0 if successful 0 otherwise
-int led_toggle(led*);		// toggles LEDs on/off, returns 0 if successful 0 otherwise
-int led_reset(led*);		// resets LEDs to their normal operation, returns 0 if successful 0 otherwise
+int led_init(led*, int);	// initialize led files. returns 0 if successful, 1 otherwise
+int led_toggle(led*);		// toggles LEDs on/off. returns 0 if successful 1 otherwise
+int led_reset(led*);		// resets LEDs to their predefined operation. returns 0 if successful, 1 otherwise
 
 int led_init(led* this, int index) {
 

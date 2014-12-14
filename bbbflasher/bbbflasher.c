@@ -22,11 +22,11 @@ int main() {
 
 	for(i = 0; i < NUMCYC; i++) {
 		led_toggle(&usr[rnd]);		// toggle on
-		sleep(TIMDLY);				// wait TIMDLY seconds
+		sleep(TIMDLY);			// wait TIMDLY seconds
 		led_toggle(&usr[rnd]); 		// toggle off
 		do {
 			rnd = rand() % NUMLED;	// select random LED
-		} while(usr[rnd].isOn);		// avoid selecting an active led	p.s: hangs state machine, use fixed algorithm.
+		} while(usr[rnd].isOn);		// throws of timing; change if possible
 	}
 
 	for(i = 0; i < NUMCYC; i++) {

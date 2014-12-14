@@ -7,6 +7,11 @@
  *
  *  created on: Nov 20, 2014
  *      author: jason
+ * 
+ *
+ *  to do: 
+ *	implement morse to char
+ *	make minor changes (see comments)
  */
 
 #ifndef MORSE_H_
@@ -22,12 +27,14 @@
 #define MORSE_DASH '-'
 #define MORSE_SPACE '_'
 
-#ifndef MORSE_DOT_GAP
-	#define MORSE_DOT_GAP 250000 // milliseconds
+#ifndef MORSE_DOT_GAP	// make provisions to change this at runtime
+#define MORSE_DOT_GAP 250000	// milliseconds
 #endif
+
 #define MORSE_DASH_GAP (3 * MORSE_DOT_GAP)
 #define MORSE_WORD_GAP (7 * MORSE_DOT_GAP)
 
+// morse string hash table
 char* morse_map[27] = {
 ".-", 	// a
 "-...",	// b
@@ -57,7 +64,7 @@ char* morse_map[27] = {
 "--.."	// z
 };
 
-char* morse_space = "_";
+char* morse_space = "_"; // find a way to make this redundant
 
 typedef struct {
 	char  morse_char;
@@ -74,10 +81,10 @@ int morse_init(morse*, char);
 // 0 if succesful, 1 otherwise
 int morse_flash(morse*, led*);
 
-char* char2morse(char);
-void  morse_dot(led*);  	// function flashes morse dot to led
-void  morse_dash(led*); 	// function flashes morse dash to led
-void  morse_gap(int);	// sleep() wrapper function to create morse gap
+char* char2morse(char); // return morse string of character passed, return NULL if not found
+void  morse_dot(led*);  // flashes morse dot to led
+void  morse_dash(led*); // flashes morse dash to led
+void  morse_gap(int);	// sleep(long int) wrapper to create morse gap
 
 int morse_init(morse* this, char c) {
 	if(isalpha(c))  {
@@ -129,7 +136,7 @@ int morse_flash(morse* this, led* morse_led) {
 char* char2morse(char c) {
 	char ascii_offset = 97;
 	int index = (int)(c - ascii_offset);	// direct hashing of ascii used to map chars to morse code
-	if(index >= 0 && index <= 26)			// index within morse_map boundaries; valid alphabetic char
+	if(index >= 0 && index <= 26)		// index within morse_map boundaries; valid alphabetic char
 		return morse_map[index];
 	else
 		return NULL;
@@ -141,8 +148,8 @@ void morse_dot(led* morse_led) {
 	led_toggle(morse_led);
 	morse_gap(MORSE_DOT_GAP);
 
-	if(!morse_led->isOn)
-		morse_dot(morse_led);
+	if(!morse_led->isOn)		// if led is on, turns it off, waits, then flashes dot
+		morse_dot(morse_led);	// possibly dangerous if led refuses to toggle, make an exit strategy
 	else
 		led_toggle(morse_led);
 
@@ -154,9 +161,9 @@ void morse_dash(led* morse_led) {
 
 	led_toggle(morse_led);
 
-	if(!morse_led->isOn) {
-		morse_gap(MORSE_DOT_GAP);
-		morse_dash(morse_led);
+	if(!morse_led->isOn) {		// recursively same as morse_dot()
+		morse_gap(MORSE_DOT_GAP);	
+		morse_dash(morse_led);	// also dangerous
 	}
 	else {
 		morse_gap(MORSE_DASH_GAP);
