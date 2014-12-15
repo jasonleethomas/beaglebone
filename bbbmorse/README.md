@@ -32,11 +32,17 @@ $ bbbmorse /home/beaglebone/bbbmorse/message.txt 0
 $ bbbmorse /home/beaglebone/bbbmorse/message.txt
 ```
 ### Options
-* filename 	
-...absolute filepath of textfile containing message. if not specified, programs looks for ./message.txt, then exits if not found.
+* filename 
+	
+...absolute filepath of textfile containing message. 
+...if not specified, programs looks for ./message.txt,..
+...then exits if not found...
 * charlimit	
-...character limit of message, program will flash less than or equal to this number. if not specified, program assumes sets limit to 512
+
+...character limit of message, program will flash less than or equal to this number. 
+...if not specified, program assumes sets limit to 512..
 * ledindex 
+
 ...chooses beaglebone's led, usr(0-3). if not specified, program uses usr 0.
 		
 
