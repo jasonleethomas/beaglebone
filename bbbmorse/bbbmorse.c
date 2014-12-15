@@ -26,7 +26,7 @@
 #include <stdlib.h>
 #include <led.h>	// beaglebone black's usr leds
 #include <genque.h> // generic queue and methods
-#include "morse.h"	// converts char to morse object
+#include <morse.h>	// converts char to morse object
 
 char* error_message; 	// passed around by functions to store error messages
 int error = 0;			// used to communicate errors between functions
